@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>tasks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">tasks</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+  <ion-item *ngFor="let task of tasks">
+
+    <ion-label>
+
+      <div ><h2>ID: {{task.id}}</h2></div>
+      <div><h2>TASKNAME: {{task.nombre}}</h2></div>
+      <div><h2>CURRENT STATUS: {{task.estado}}</h2></div>
+
+    </ion-label>
+
+    <ion-label>
+      <ion-button color="primary">ACTUALIZAR ESTADO</ion-button>
+    </ion-label>
+
+
+  </ion-item>
+</ion-list>
+
+</ion-content>
+
+

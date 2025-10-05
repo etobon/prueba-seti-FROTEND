@@ -1,0 +1,43 @@
+[
+    {
+        "id":1,
+        "nombre":"TAREA 1",
+        "estado":"ASIGNADA"
+    },
+    {
+        "id":2,
+        "nombre":"TAREA 2",
+        "estado":"INICIADA"
+    },
+    {
+        "id":3,
+        "nombre":"TAREA 3",
+        "estado":"TERMINADA"
+    },
+    {
+        "id":4,
+        "nombre":"TAREA 4",
+        "estado":"ASIGNADA"
+    },
+    {
+        "id":5,
+        "nombre":"TAREA 5",
+        "estado":"TERMINADA"
+    },
+    {
+        "id":6,
+        "nombre":"TAREA 6",
+        "estado":"CANCELADA"
+    },
+    {
+        "id":7,
+        "nombre":"TAREA 7",
+        "estado":"TERMINADA"
+    },
+    {
+        "id":8,
+        "nombre":"TAREA 8",
+        "estado":"EN PROCESO"
+    }
+
+]
