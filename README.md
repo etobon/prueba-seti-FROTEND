@@ -4,189 +4,71 @@ Prueba de Ingreso Seti: (Desarrollo de Aplicación Móvil Ionic & Angular + Capa
 Ejercicio # 2:
 El objetivo de esta prueba es evaluar tus habilidades en el desarrollo de aplicaciones móviles utilizando el framework Ionic. A través de este ejercicio, queremos ver cómo abordas el desarrollo de una nueva funcionalidad, mejoras la experiencia del usuario y optimizas el rendimiento de una aplicación existente. Además, se evaluará tu capacidad para trabajar con herramientas de control de versiones y servicios en la nube.
 
+Funcionalidad:
+--------------------
+
+Descripción de la Aplicación Base, Crea una aplicación base con una sencilla lista de tareas (To-Do List) que permite a los
+usuarios:
+• Agregar nuevas tareas.
+• Marcar tareas como completadas.
+• Eliminar tareas.
+
+La aplicación está construida con Ionic y Angular, y utiliza almacenamiento local para guardar el estado de las tareas. Añadir la capacidad de categorizar tareas. Los usuarios deben poder:
+
+o Crear, editar y eliminar categorías.
+o Asignar una categoría a cada tarea.
+o Filtrar las tareas por categoría.
+
+
 Criterios de Aceptacion:
 ----------------------
-1 Projecto desarrollado en SpringBoot usando programacion reactiva (WebFlux) sobre Arquitectura Hexagonal
-Se desarrolló bajo Patron de Arquitectura: Hexagonal. La estructura arquitectónica del proyecto es asi:
-image
-Todo el sistema API-Rest fue desarrollado bajo WebFlux, para eso lo primero es asegurarse que en el POM,Xml del proyecto se tenga la dependencia de Spring WebFlux
-image
-2 Base de datos seleccionada: MySQL:
-Como el desarrollo es bajo WebFlux (Rx), es fundmental trabajar con R2DBC (Reactive Relational Database Connectivity), puesto que MySQL por default gestiona con JDBC (el cual es bloquente) pero WebFlux es NO bloqueante osea que R2DBC es el mecanismo usado por webflux para garantizar consultas a Bases de Datos de manera No bloqueantes (Soportando Mono / Flux) elementos fundamentales de RxJava y Project Reactor de Spring
+1 Asegúrate de que la aplicación puede ser compilada para ambas plataformas usando Córdova:
+----
+Se hace uso de Capacitor puesto que actualmente Cordova está en desuso y Capacitor nos ofrece mucho mas beneficiios para generar y desplegar la app en Sistemas Android & IOS
 
-image
-Modelo Entidad Relacion (MER)
+2 Instrucciones para compilar y genear app para Android & IOS (Generar Bundle para PlayStore de Android):
+-------------
 
-CREATE DATABASE IF NOT EXISTS seti_db; USE seti_db;
+Los siguientes son los pasos a seguir para generar, firmar y crear Bundle de la app para PlayStore asi:
 
-CREATE TABLE franchises ( id bigint NOT NULL AUTO_INCREMENT, name varchar(255) DEFAULT NULL, PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+1. ionic build [ambiente].
+Este comando nos permite compilar el codigo de la app, como en nuestro caso no estamos usando ambientes, pues no se pone, solamente usamos el comando ionic build
 
-CREATE TABLE franchises ( id bigint NOT NULL AUTO_INCREMENT, name varchar(255) DEFAULT NULL, PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+2. npm install @capacitor/android
+Asegurarse de tener instalado Capacitor / Android, si no está instalado ejecutar
 
-CREATE TABLE products ( id bigint NOT NULL AUTO_INCREMENT, branch_id bigint NOT NULL, name varchar(255) DEFAULT NULL, stock bigint DEFAULT NULL, PRIMARY KEY (id), KEY branch_id (branch_id), CONSTRAINT branch_id FOREIGN KEY (branch_id) REFERENCES branches (id) ON DELETE CASCADE ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+3. npx cap add android
+Agrrega capacitor a Android Studio en caso de No tenerlo instalado.
+Nota: Si ya está instalado, se debe sincronizar el proyecto de Capacitor con Android Studio, para esto, ejecutar: npx cap sync android
 
-3 Las respuestas de los servicios deben ser encadenadas con operadores MAP, FLATMAP, MERGE, Etc.
-Todo el funcionamiento de los servicios de la capa Aplicaction (Services: FranchiseService, BranchService, ProductService) trabajan con streams encadenando la respuesta a Map, FlatMap, segun sea necesario
+5. npx cap open android
+Abrir el proyecto en Android Studio para generar firma y bundle
 
-4 Use correctamente los señales onNext, onError, onComplete.
-Todo el funcionamiento de los servicios de la capa Aplicaction (Services: FranchiseService, BranchService, ProductService) trabajan con streams encadenando la respuesta a Map, FlatMap, segun sea necesario
+6. En Android Studio, abrir la aplicacion y esperar la actualización de Dependencias de Gradle (Segun sea el caso)
 
-5 Pruebas Unitarias en Servicios (deben superar el 80% de cobertura):
-Todos los servicios de la capa Application tienen cobertura del 85%, pruebas unitarias realizadas con Junit & Mockito, gracias al plugin de Jacoco, se puede observar la cobertura en formato HTML del site image
+7. En Android Studio:
+  * /build/Generate Signed Bundle (Seleccionar por default Bundle)
+  * Generar Almacen de llaves (keyStore para la firma, diligenciar todas las opciones solicitadas)
+  * Guardar llave encriptada (Fundamental para poder firmarse correctamente)
+  * Aceptar y generar Bundle Firmado
+    
+8. Subir bundle a Google Play Console (realizar pago de membesia 25U$) y seguir instrucciones de Google Corp.
 
-Funcionalidad:
-Para garantizar la funcionalidad del proyecto, se deben ejecutar los siguientes comandos:
 
-./mvnw clean install
+Desafios Presentados en la Prueba
+---------------
 
-Este comando generará el archivo .jar (Ejecutable) de la Api.jar dentro de la carpeta /target del pryecto
+1. Hubiera querido más tiempo para haber teminado a cabalidad la app (con integración Firebase y demás para motoreo, dashboard de usabilidad y metricas)
+2. Gasté mucho tiempo validando contra Córdova porque así lo pedía el requerimiento.  (Me fue mas fluido al hacelo con Capacitor)
+3. Hubiera sido genial poder integrar en tiempo real contra una api-rest (de task), pero ..., lastimosamente no alcancé.
 
-java -jar [prueba-0.0.1-SNAPSHOT.jar] (archivo .jar generado)
+De todas maneras... 
 
-image
-Todas las funcionalidades de la API están contempladas en los siguientes servicios:
+Fue gradioso poder tratado de hacer este reto!
 
-Servicios de la API
-1 Adicionar una Franqucia:
-Protocol: POST
-EndPoint: /localhost:8080/api/franchises"
 
-JsonRequest:
-{
-	"name": "Nombre Franqucia"
-}
 
-JsonResponse:
-{
-	"id": 17,
-	"name": "Nombre Franquicia",
-	"branches": []
-}
-3 Listar todas las franchises
-Protocol: GET
-EndPoint: /localhost:8080/api/franchises"
 
-JsonRequest:
-nada
 
-JsonResponse:
-{
-	"id": 17,
-	"name": "Nombre Franquicia",
-	"branches": []
-}
-4 Adicioanr una Sucursal a una franquicia
-Protocol: POST
-EndPoint: /localhost:8080/api/branches/{franchiseId}"
 
-Ejemplo: Ejemplo: http://localhost:8080/api/branches/17
 
-JsonRequest:
-{
-	"name" : "Brach 1"
-}
-
-JsonResponse:
-{
-	"id": null,
-	"franchiseId": 17,
-	"name": "Brach 1",
-	"products": []
-}
-5 Actualiar nombre de Sucursal
-Protocol: PUT
-EndPoint: http://localhost:8080/api/branches/{id}?name={nombre nuevo}"
-
-Ejemplo: http://localhost:8080/api/branches/4?name=prueba1
-
-JsonRequest:
-nada
-
-JsonResponse:
-{
-	"id": 4,
-	"name": "prueba1",
-	"franchiseId": 17
-}
-6 Adicioanr un producto a una sucursal
-Protocol: POST
-EndPoint: http://localhost:8080/api/products/{branchId}"
-
-Ejemplo: http://localhost:8080/api/products/4
-
-JsonRequest:
-{
-  "name": "Producto 4",
-  "stock": 2500
-}
-
-JsonResponse:
-{
-	"id": 8,
-	"branchId": 4,
-	"name": "Producto 4",
-	"stock": 2500
-}
-7 Borrar un producto
-Protocol: DEL
-EndPoint: http://localhost:8080/api/products/{id}"
-
-Ejemplo: http://localhost:8080/api/products/8
-
-JsonRequest:
-nada
-
-JsonResponse:
-nada, estatus= 200
-8 Modificar Stock de un producto
-Protocol: PUT
-EndPoint: http://localhost:8080/api/products/{id}/{Stock}"
-
-Ejemplo: http://localhost:8080/api/products/7/3000
-
-JsonRequest:
-nada
-
-JsonResponse:
-{
-	"id": 7,
-	"name": "Producto 7",
-	"stock": 2100,
-	"branchId": 4
-}
-9 Encontrar maximo stock de producto en una sucursl:
-Protocol: GET
-EndPoint: http://localhost:8080/api/products/max/{branchid}"
-
-Ejemplo: http://localhost:8080/api/products/max/4
-
-JsonRequest:
-nada
-
-JsonResponse:
-{
-	"id": 7,
-	"branchId": 4,
-	"name": "Producto 7",
-	"stock": 2100
-}
-10 Actualizar nombre de un producto
-Protocol: PUT
-EndPoint: http://localhost:8080/api/products/{id}"
-
-Ejemplo: http://localhost:8080/api/products/7
-
-JsonRequest:
-{
-  "name": "Producto X",
-  "stock": 2500
-}
-
-JsonResponse:
-{
-	"id": 7,
-	"branchId": 4,
-	"name": "Producto 7",
-	"stock": 2100
-}
-Algunas ejecuciones de Sevicios desde Postman:
