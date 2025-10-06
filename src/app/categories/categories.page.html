@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" color="success" (click)="addCategory()">
+    <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+    Nueva Categoría
+  </ion-button>
+
+  <ion-grid>
+    <ion-row class="header-row" class="border">
+      <ion-col size="3"><strong>ID</strong></ion-col>
+      <ion-col size="5"><strong>Nombre</strong></ion-col>
+      <ion-col size="4"><strong>Acciones</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let cat of categories" class="border">
+      <ion-col size="3">{{ cat.id }}</ion-col>
+      <ion-col size="5">{{ cat.name }}</ion-col>
+      <ion-col size="4">
+        <ion-button size="small" color="warning" (click)="editCategory(cat)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" color="danger" (click)="deleteCategory(cat.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

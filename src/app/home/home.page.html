@@ -4,31 +4,39 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tasks</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <ion-list>
-  <ion-item *ngFor="let task of tasks">
+    <ion-button expand="block" color="success" (click)="addTask()">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Nueva Tarea
+    </ion-button>
 
-    <ion-label>
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">tasks</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-      <div ><h2>ID: {{task.id}}</h2></div>
-      <div><h2>TASKNAME: {{task.nombre}}</h2></div>
-      <div><h2>CURRENT STATUS: {{task.estado}}</h2></div>
+    <ion-list>
+    <ion-item *ngFor="let task of tasks">
 
-    </ion-label>
+      <ion-label>
 
-    <ion-label>
-      <ion-button color="primary">ACTUALIZAR ESTADO</ion-button>
-    </ion-label>
+        <div ><h2>ID: <a href="/categorizar?id={{task.id}}" alt="categorizar" > {{task.id}} </a></h2></div>
+        <div><h2>TASKNAME: {{task.name}}</h2></div>
+        <div><h2>CATEGORY: {{task.category}}</h2></div>
+        <div><h2>CURRENT STATUS: {{task.status}}</h2></div>
+
+      </ion-label>
+
+      <ion-label>
+        <ion-button color="primary"  (click)="finalizeTask(task)">FINALIZAR TAREA</ion-button>
+        <ion-button color="danger"  (click)="deleteTask(task.id)">ELIMINAR TAREA</ion-button>
+      </ion-label>
 
 
-  </ion-item>
-</ion-list>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
 
